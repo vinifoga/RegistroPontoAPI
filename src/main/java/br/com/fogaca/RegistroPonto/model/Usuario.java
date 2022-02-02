@@ -26,9 +26,7 @@ public class Usuario implements UserDetails {
 
 	private static final long serialVersionUID = 4796227405470905643L;
 	@Id
-	@GenericGenerator(name = "table", strategy = "enhanced-table", parameters = {
-			@org.hibernate.annotations.Parameter(name = "table_name", value = "sequence_table") })
-	@GeneratedValue(generator = "table", strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotNull
 	@NotEmpty

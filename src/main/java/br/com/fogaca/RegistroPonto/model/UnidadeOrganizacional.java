@@ -18,9 +18,7 @@ import org.hibernate.validator.constraints.br.CNPJ;
 public class UnidadeOrganizacional {
 
 	@Id
-	@GenericGenerator(name = "table", strategy = "enhanced-table", parameters = {
-			@org.hibernate.annotations.Parameter(name = "table_name", value = "sequence_table") })
-	@GeneratedValue(generator = "table", strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codUnidade;
 	@NotNull
 	@NotEmpty

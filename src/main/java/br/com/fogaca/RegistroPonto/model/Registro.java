@@ -18,9 +18,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class Registro {
 
 	@Id
-	@GenericGenerator(name = "table", strategy = "enhanced-table", parameters = {
-			@org.hibernate.annotations.Parameter(name = "table_name", value = "sequence_table") })
-	@GeneratedValue(generator = "table", strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codRegistro;
 	@NotNull
 	private LocalDate data;

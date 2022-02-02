@@ -13,9 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class Departamento {
 
 	@Id
-	@GenericGenerator(name = "table", strategy = "enhanced-table", parameters = {
-			@org.hibernate.annotations.Parameter(name = "table_name", value = "sequence_table") })
-	@GeneratedValue(generator = "table", strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotNull
 	@NotEmpty
