@@ -22,28 +22,32 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-public class Usuario implements UserDetails{
+public class Usuario implements UserDetails {
 
 	private static final long serialVersionUID = 4796227405470905643L;
-	@Id @GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
+	@Id
+	@GenericGenerator(name = "table", strategy = "enhanced-table", parameters = {
+			@org.hibernate.annotations.Parameter(name = "table_name", value = "sequence_table") })
+	@GeneratedValue(generator = "table", strategy = GenerationType.TABLE)
 	private Long id;
-	@NotNull @NotEmpty
+	@NotNull
+	@NotEmpty
 	private String nome;
-	@NotNull @NotEmpty
+	@NotNull
+	@NotEmpty
 	private String email;
-	@NotNull @NotEmpty
+	@NotNull
+	@NotEmpty
 	private String senha;
 	@ManyToOne
 	private Cargo cargo;
-	
-	@Type(type="true_false")
+
+	@Type(type = "true_false")
 	private boolean ativo;
-	
+
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name="usuario_roles", joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "nomeRole"))
+	@JoinTable(name = "usuario_roles", joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "nomeRole"))
 	private List<Role> roles = new ArrayList<>();
-	
 
 	@Override
 	public int hashCode() {
@@ -69,13 +73,10 @@ public class Usuario implements UserDetails{
 			return false;
 		return true;
 	}
-	
-	
+
 	public Usuario() {
 		super();
 	}
-	
-	
 
 	public Usuario(@NotNull @NotEmpty String nome, @NotNull @NotEmpty String email, @NotNull @NotEmpty String senha,
 			Cargo cargo, boolean ativo) {
@@ -118,26 +119,27 @@ public class Usuario implements UserDetails{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
+
 	public Cargo getCargo() {
 		return cargo;
 	}
-	
+
 	public void setCargo(Cargo cargo) {
 		this.cargo = cargo;
 	}
-	
+
 	public boolean isAtivo() {
 		return ativo;
 	}
-	
+
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
-	
+
 	public List<Role> getRoles() {
 		return roles;
 	}
+
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
@@ -175,5 +177,5 @@ public class Usuario implements UserDetails{
 	@Override
 	public boolean isEnabled() {
 		return true;
-	}	
+	}
 }

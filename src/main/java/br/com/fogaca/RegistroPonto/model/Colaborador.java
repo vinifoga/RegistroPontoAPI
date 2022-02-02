@@ -24,16 +24,21 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Colaborador {
 
-	@Id @GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
+	@Id
+	@GenericGenerator(name = "table", strategy = "enhanced-table", parameters = {
+			@org.hibernate.annotations.Parameter(name = "table_name", value = "sequence_table") })
+	@GeneratedValue(generator = "table", strategy = GenerationType.TABLE)
 	private Long matricula;
-	@NotNull @NotEmpty @Email
+	@NotNull
+	@NotEmpty
+	@Email
 	private String email;
-	@NotNull @NotEmpty
+	@NotNull
+	@NotEmpty
 	private String nome;
 	@NotNull
-	private LocalDate dataNascimento;	
-	@Type(type="true_false")
+	private LocalDate dataNascimento;
+	@Type(type = "true_false")
 	private boolean ativo;
 	private String telefone;
 	@ManyToOne
@@ -47,12 +52,12 @@ public class Colaborador {
 	private LocalTime horaEntra;
 	private LocalTime horaSai;
 	private LocalTime intervaloTempo;
-	@Type(type="true_false")
+	@Type(type = "true_false")
 	private boolean trabalhaTodosSabados;
-	@Type(type="true_false")
+	@Type(type = "true_false")
 	private boolean trabalhaSabadosAlternados;
-	@Type(type="true_false")
-	private boolean homeOffice;	
+	@Type(type = "true_false")
+	private boolean homeOffice;
 //	@ElementCollection(targetClass = DiasHomeOffice.class, fetch = FetchType.EAGER)
 //	@Enumerated(EnumType.STRING)
 //	private List<DiasHomeOffice> diasHomeOffice;
@@ -63,14 +68,17 @@ public class Colaborador {
 	@OneToMany(mappedBy = "colaborador")
 	@JsonIgnore
 	private List<Registro> registro;
-	
+
 	public Colaborador() {
 		super();
 	}
 
-	public Colaborador(@NotNull @NotEmpty String email, @NotNull @NotEmpty String nome, @NotNull LocalDate dataNascimento, boolean ativo,
-			String telefone, @NotNull Cargo cargo, @NotNull LocalDate dataAdmissao, @NotNull String cpf,
-			@NotNull String pis, LocalTime horaEntra, LocalTime horaSai, LocalTime intervaloTempo, boolean trabalhaTodosSabados, boolean trabalhaSabadorAlternados, boolean homeOffice, LocalTime horaEntraSabado, LocalTime horaSaiSabado, UnidadeOrganizacional unidadeOrganizacional) {
+	public Colaborador(@NotNull @NotEmpty String email, @NotNull @NotEmpty String nome,
+			@NotNull LocalDate dataNascimento, boolean ativo, String telefone, @NotNull Cargo cargo,
+			@NotNull LocalDate dataAdmissao, @NotNull String cpf, @NotNull String pis, LocalTime horaEntra,
+			LocalTime horaSai, LocalTime intervaloTempo, boolean trabalhaTodosSabados,
+			boolean trabalhaSabadorAlternados, boolean homeOffice, LocalTime horaEntraSabado, LocalTime horaSaiSabado,
+			UnidadeOrganizacional unidadeOrganizacional) {
 		super();
 		this.email = email;
 		this.nome = nome;
@@ -111,9 +119,11 @@ public class Colaborador {
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
 	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
@@ -241,22 +251,21 @@ public class Colaborador {
 	public void setHoraSaiSabado(LocalTime horaSaiSabado) {
 		this.horaSaiSabado = horaSaiSabado;
 	}
-	
+
 	public UnidadeOrganizacional getUnidadeOrganizacional() {
 		return unidadeOrganizacional;
 	}
-	
+
 	public void setUnidadeOrganizacional(UnidadeOrganizacional unidadeOrganizacional) {
 		this.unidadeOrganizacional = unidadeOrganizacional;
 	}
+
 	public List<Registro> getRegistro() {
 		return registro;
 	}
+
 	public void setRegistro(List<Registro> registro) {
 		this.registro = registro;
 	}
-	
-	
-	
-	
+
 }

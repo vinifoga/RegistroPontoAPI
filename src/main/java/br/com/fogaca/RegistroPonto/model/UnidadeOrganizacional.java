@@ -17,16 +17,19 @@ import org.hibernate.validator.constraints.br.CNPJ;
 @Entity
 public class UnidadeOrganizacional {
 
-	@Id @GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
+	@Id
+	@GenericGenerator(name = "table", strategy = "enhanced-table", parameters = {
+			@org.hibernate.annotations.Parameter(name = "table_name", value = "sequence_table") })
+	@GeneratedValue(generator = "table", strategy = GenerationType.TABLE)
 	private Long codUnidade;
-	@NotNull @NotEmpty
+	@NotNull
+	@NotEmpty
 	private String descricao;
 	@CNPJ
 	private String cnpj;
 	@NotNull
 	private LocalDate abertura;
-	@Type(type="true_false")
+	@Type(type = "true_false")
 	private boolean ativo;
 	private String telefone;
 	private String cep;
@@ -39,7 +42,7 @@ public class UnidadeOrganizacional {
 	private String estado;
 	private LocalTime horaFuncionaInicio;
 	private LocalTime horaFuncionaFim;
-	
+
 	public UnidadeOrganizacional() {
 		super();
 	}
@@ -173,5 +176,5 @@ public class UnidadeOrganizacional {
 
 	public void setHoraFuncionaFim(LocalTime horaFuncionaFim) {
 		this.horaFuncionaFim = horaFuncionaFim;
-	}	
+	}
 }
