@@ -62,7 +62,7 @@ public class UsuarioController {
 		return ResponseEntity.created(uri).body(new UsuarioDto(usuario));
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/id/{id}")
 	@RolesAllowed("RESPONSAVEL_RH")
 	public ResponseEntity<UsuarioDto> findById(@PathVariable Long id){
 		if(usuarioService.findById(id).isPresent()) {
@@ -71,7 +71,7 @@ public class UsuarioController {
 		return ResponseEntity.notFound().build();
 	}
 
-	@GetMapping("/{email}")
+	@GetMapping("/email/{email}")
 	public ResponseEntity<UsuarioDto> findByEmail(@PathVariable String email){
 		if(usuarioService.findByEmail(email).isPresent()){
 			return ResponseEntity.ok(new UsuarioDto(usuarioService.findByEmail(email).get()));
