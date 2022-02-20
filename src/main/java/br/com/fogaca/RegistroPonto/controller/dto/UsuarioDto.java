@@ -11,12 +11,14 @@ public class UsuarioDto {
 	private String nome;
 	private boolean ativo;
 	private String cargo;
+	private String email;
 	
 	public UsuarioDto (Usuario usuario) {
 		this.id = usuario.getId();
 		this.nome = usuario.getNome();
 		this.ativo = usuario.isAtivo();
 		this.cargo = usuario.getCargo().getDescricao();
+		this.email = usuario.getUsername;
 	}
 	
 	public Long getId() {
@@ -32,6 +34,10 @@ public class UsuarioDto {
 	
 	public String getCargo() {
 		return cargo;
+	}
+
+	public String getEmail(){
+		return email;
 	}
 
 	public static List<UsuarioDto> converterUsuario(List<Usuario> usuarios) {
