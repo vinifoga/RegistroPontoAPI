@@ -67,6 +67,14 @@ public class UsuarioController {
 		}
 		return ResponseEntity.notFound().build();
 	}
+
+	@GetMapping("/{email}")
+	public ResponseEntity<UsuarioDto> findByEmail(@PathVariable String email){
+		if(usuarioService.findByEmail(email).isPresent()){
+			return ResponseEntity.ok(new UsuarioDto(usuarioService.findByEmail(email).get()));
+		}
+		return ResponseEntity.notFound().build();
+	}
 	
 	@PutMapping("/{id}")
 	@Transactional
