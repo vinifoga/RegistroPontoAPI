@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -61,6 +62,7 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/{id}")
+	@RolesAllowed("RESPONSAVEL_RH")
 	public ResponseEntity<UsuarioDto> findById(@PathVariable Long id){
 		if(usuarioService.findById(id).isPresent()) {
 			return ResponseEntity.ok(new UsuarioDto(usuarioService.findById(id).get()));
