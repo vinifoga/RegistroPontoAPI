@@ -31,6 +31,7 @@ import br.com.fogaca.RegistroPonto.service.UsuarioService;
 
 @RestController
 @RequestMapping("/usuarios")
+@RolesAllowed("RESPONSAVEL_RH")
 public class UsuarioController {
 
 	@Autowired
