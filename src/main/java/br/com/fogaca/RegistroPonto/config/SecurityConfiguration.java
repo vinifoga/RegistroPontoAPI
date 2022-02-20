@@ -42,9 +42,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 	
 	//Autorizacao
-	String responsavelRh = "ROLE_RESPONSAVEL_RH";
-	String admin = "ROLE_ADMIN";
-	String colaborador = "ROLE_COLABORADOR";
+	String responsavelRh = "RESPONSAVEL_RH";
+	String admin = "ADMIN";
+	String colaborador = "COLABORADOR";
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
