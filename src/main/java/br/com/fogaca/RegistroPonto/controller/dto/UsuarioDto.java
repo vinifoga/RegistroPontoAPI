@@ -18,7 +18,7 @@ public class UsuarioDto {
 		this.nome = usuario.getNome();
 		this.ativo = usuario.isAtivo();
 		this.cargo = usuario.getCargo().getDescricao();
-		this.email = usuario.getUsername;
+		this.email = usuario.getEmail();
 	}
 	
 	public Long getId() {
