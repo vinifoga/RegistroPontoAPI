@@ -31,7 +31,6 @@ import br.com.fogaca.RegistroPonto.service.UsuarioService;
 
 @RestController
 @RequestMapping("/usuarios")
-@RolesAllowed("RESPONSAVEL_RH")
 public class UsuarioController {
 
 	@Autowired
@@ -63,7 +62,6 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/id/{id}")
-	@RolesAllowed("RESPONSAVEL_RH")
 	public ResponseEntity<UsuarioDto> findById(@PathVariable Long id){
 		if(usuarioService.findById(id).isPresent()) {
 			return ResponseEntity.ok(new UsuarioDto(usuarioService.findById(id).get()));
