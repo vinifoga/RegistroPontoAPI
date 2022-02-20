@@ -31,7 +31,6 @@ import br.com.fogaca.RegistroPonto.service.UsuarioService;
 
 @RestController
 @RequestMapping("/usuarios")
-@RolesAllowed("RESPONSAVEL_RH")
 public class UsuarioController {
 
 	@Autowired
@@ -42,7 +41,6 @@ public class UsuarioController {
 	
 	@GetMapping
 	@Cacheable(value = "listaUsuario")
-	@RolesAllowed("RESPONSAVEL_RH")
 	public List<UsuarioDto> list(Long usuarioId){
 		if(usuarioId == null) {
 			return UsuarioDto.converterUsuario(usuarioService.list());
@@ -64,7 +62,6 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/id/{id}")
-	@RolesAllowed("RESPONSAVEL_RH")
 	public ResponseEntity<UsuarioDto> findById(@PathVariable Long id){
 		if(usuarioService.findById(id).isPresent()) {
 			return ResponseEntity.ok(new UsuarioDto(usuarioService.findById(id).get()));
@@ -73,7 +70,6 @@ public class UsuarioController {
 	}
 
 	@GetMapping("/email/{email}")
-	@RolesAllowed("RESPONSAVEL_RH")
 	public ResponseEntity<UsuarioDto> findByEmail(@PathVariable String email){
 		if(usuarioService.findByEmail(email).isPresent()){
 			return ResponseEntity.ok(new UsuarioDto(usuarioService.findByEmail(email).get()));
