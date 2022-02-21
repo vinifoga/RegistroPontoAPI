@@ -56,7 +56,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.GET, "/usuarios/email/**").hasRole(responsavelRh)
 		.antMatchers(HttpMethod.GET, "/usuarios/email/**").hasRole(colaborador)
 		.antMatchers(HttpMethod.PUT, "/usuarios/**").hasRole(responsavelRh)
-		.antMatchers(HttpMethod.GET, "/usuarios/**").hasRole(colaborador)
 		.antMatchers(HttpMethod.PUT, "/usuarios/**").hasRole(colaborador)
 		.antMatchers(HttpMethod.DELETE, "/usuarios/**").hasRole(responsavelRh)
 		.antMatchers(HttpMethod.GET, "/colaboradores").hasRole(responsavelRh)
