@@ -4,7 +4,6 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.security.RolesAllowed;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -26,7 +25,7 @@ import br.com.fogaca.RegistroPonto.controller.dto.UsuarioDto;
 import br.com.fogaca.RegistroPonto.controller.form.UsuarioForm;
 import br.com.fogaca.RegistroPonto.controller.form.UsuarioUpdateForm;
 import br.com.fogaca.RegistroPonto.model.Usuario;
-import br.com.fogaca.RegistroPonto.service.CargoService;
+import br.com.fogaca.RegistroPonto.service.ColaboradorService;
 import br.com.fogaca.RegistroPonto.service.UsuarioService;
 
 @RestController
@@ -37,7 +36,7 @@ public class UsuarioController {
 	private UsuarioService usuarioService;
 	
 	@Autowired
-	private CargoService cargoService;
+	private ColaboradorService colaboradorService;
 	
 	@GetMapping
 	@Cacheable(value = "listaUsuario")
@@ -55,7 +54,7 @@ public class UsuarioController {
 	@Transactional
 	@CacheEvict(value = "listaUsuario", allEntries = true)
 	public ResponseEntity<UsuarioDto> create(@RequestBody @Valid UsuarioForm usuarioForm, UriComponentsBuilder uriBuilder){
-		Usuario usuario = usuarioForm.converter(cargoService);
+		Usuario usuario = usuarioForm.converter(colaboradorService);
 		usuarioService.save(usuario);
 		URI uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(usuario.getId()).toUri();
 		return ResponseEntity.created(uri).body(new UsuarioDto(usuario));
@@ -82,7 +81,7 @@ public class UsuarioController {
 	@CacheEvict(value = "listaUsuario", allEntries = true)
 	public ResponseEntity<UsuarioDto> update(@PathVariable Long id, @RequestBody @Valid UsuarioUpdateForm usuarioForm){
 		if(usuarioService.findById(id).isPresent()) {
-			Usuario usuario = usuarioForm.update(id, usuarioService, cargoService);
+			Usuario usuario = usuarioForm.update(id, usuarioService, colaboradorService);
 			return ResponseEntity.ok(new UsuarioDto(usuario));
 		}
 		return ResponseEntity.notFound().build();
