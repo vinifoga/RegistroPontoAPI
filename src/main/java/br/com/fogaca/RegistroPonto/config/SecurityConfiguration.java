@@ -75,7 +75,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.POST, "/departamentos").hasAnyRole(responsavelRh,admin)
 		.antMatchers(HttpMethod.PUT, "/departamentos/**").hasAnyRole(responsavelRh,admin)
 		.antMatchers(HttpMethod.DELETE, "/departamentos/**").hasAnyRole(responsavelRh,admin)
-		.antMatchers(HttpMethod.GET, "/registros").hasAnyRole(responsavelRh,admin)
+		.antMatchers(HttpMethod.GET, "/registros").hasAnyRole(responsavelRh,colaborador,admin)
 		.antMatchers(HttpMethod.GET, "/registros/**").hasAnyRole(responsavelRh,colaborador,admin)
 		.antMatchers(HttpMethod.POST, "/registros").hasAnyRole(responsavelRh,colaborador,admin)
 		.antMatchers(HttpMethod.PUT, "/registros/**").hasAnyRole(responsavelRh,admin)
