@@ -13,7 +13,7 @@ public class UsuarioDto {
 	private Long id;
 	private String nome;
 	private boolean ativo;
-	private String cargo;
+	private String colaboradorNome;
 	private String email;
 	private Collection<? extends GrantedAuthority> roles;
 	
@@ -21,7 +21,7 @@ public class UsuarioDto {
 		this.id = usuario.getId();
 		this.nome = usuario.getNome();
 		this.ativo = usuario.isAtivo();
-		this.cargo = usuario.getCargo().getDescricao();
+		this.colaboradorNome = usuario.getColaborador().getNome();
 		this.email = usuario.getEmail();
 		this.roles = usuario.getAuthorities();
 	}
@@ -37,10 +37,10 @@ public class UsuarioDto {
 		return ativo;
 	}
 	
-	public String getCargo() {
-		return cargo;
+	public String getColaboradorNome() {
+		return colaboradorNome;
 	}
-
+	
 	public String getEmail(){
 		return email;
 	}

@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Type;
 
 import br.com.fogaca.RegistroPonto.model.Usuario;
-import br.com.fogaca.RegistroPonto.service.CargoService;
+import br.com.fogaca.RegistroPonto.service.ColaboradorService;
 
 public class UsuarioForm {
 
@@ -17,7 +17,7 @@ public class UsuarioForm {
 	@NotNull @NotEmpty
 	private String senha;
 	@NotNull
-	private Long cargoId;
+	private Long colaboradorId;
 	
 	@Type(type="true_false")
 	private boolean ativo;
@@ -46,14 +46,13 @@ public class UsuarioForm {
 		this.senha = senha;
 	}
 
-	public Long getCargoId() {
-		return cargoId;
+	public Long getColaboradorId() {
+		return colaboradorId;
+	}
+	public void setColaboradorId(Long colaboradorId) {
+		this.colaboradorId = colaboradorId;
 	}
 	
-	public void setCargoId(Long cargoId) {
-		this.cargoId = cargoId;
-	}
-
 	public boolean isAtivo() {
 		return ativo;
 	}
@@ -62,8 +61,8 @@ public class UsuarioForm {
 		this.ativo = ativo;
 	}
 	
-	public Usuario converter(CargoService cargoService) {
-		return new Usuario(nome, email, senha, cargoService.findById(cargoId).get(), ativo);
+	public Usuario converter(ColaboradorService colaboradorService) {
+		return new Usuario(nome, email, senha, colaboradorService.findById(colaboradorId).get(), ativo);
 	}
 
 }

@@ -16,7 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,7 +37,7 @@ public class Usuario implements UserDetails {
 	@NotEmpty
 	private String senha;
 	@ManyToOne
-	private Cargo cargo;
+	private Colaborador colaborador;
 
 	@Type(type = "true_false")
 	private boolean ativo;
@@ -77,12 +76,12 @@ public class Usuario implements UserDetails {
 	}
 
 	public Usuario(@NotNull @NotEmpty String nome, @NotNull @NotEmpty String email, @NotNull @NotEmpty String senha,
-			Cargo cargo, boolean ativo) {
+			Colaborador colaborador, boolean ativo) {
 		super();
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
-		this.cargo = cargo;
+		this.colaborador = colaborador;
 		this.ativo = ativo;
 	}
 
@@ -118,12 +117,12 @@ public class Usuario implements UserDetails {
 		this.senha = senha;
 	}
 
-	public Cargo getCargo() {
-		return cargo;
+	public Colaborador getColaborador() {
+		return colaborador;
 	}
-
-	public void setCargo(Cargo cargo) {
-		this.cargo = cargo;
+	
+	public void setColaborador(Colaborador colaborador) {
+		this.colaborador = colaborador;
 	}
 
 	public boolean isAtivo() {
