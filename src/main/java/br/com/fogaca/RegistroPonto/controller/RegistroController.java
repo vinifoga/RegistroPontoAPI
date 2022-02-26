@@ -42,7 +42,7 @@ public class RegistroController {
 	@GetMapping
 	public Page<RegistroDto> list(Long id, @RequestParam Long colaboradorId, @PageableDefault(sort= {"data","hora"}, direction = Direction.DESC, page = 0, size = 4) Pageable paginacao){
 		
-		if(id == null) { 
+		if(colaboradorId == null) { 
 			Page<Registro> registros = registroService.list(paginacao);
 			return RegistroDto.converterRegistro(registros);
 		} else {
