@@ -71,18 +71,15 @@ public class Usuario implements UserDetails {
 		return true;
 	}
 
-	public Usuario() {
-		super();
-	}
-
 	public Usuario(@NotNull @NotEmpty String nome, @NotNull @NotEmpty String email, @NotNull @NotEmpty String senha,
-			Colaborador colaborador, boolean ativo) {
+			Colaborador colaborador, boolean ativo, List<Role> roles) {
 		super();
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
 		this.colaborador = colaborador;
 		this.ativo = ativo;
+		this.roles = roles;
 	}
 
 	public Long getId() {

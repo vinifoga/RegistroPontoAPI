@@ -7,6 +7,7 @@ import org.hibernate.annotations.Type;
 
 import br.com.fogaca.RegistroPonto.model.Usuario;
 import br.com.fogaca.RegistroPonto.service.ColaboradorService;
+import br.com.fogaca.RegistroPonto.service.RoleService;
 
 public class UsuarioForm {
 
@@ -18,6 +19,8 @@ public class UsuarioForm {
 	private String senha;
 	@NotNull
 	private Long colaboradorId;
+	@NotNull
+	private String roleId;
 	
 	@Type(type="true_false")
 	private boolean ativo;
@@ -61,8 +64,15 @@ public class UsuarioForm {
 		this.ativo = ativo;
 	}
 	
-	public Usuario converter(ColaboradorService colaboradorService) {
-		return new Usuario(nome, email, senha, colaboradorService.findById(colaboradorId).get(), ativo);
+	public String getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
+	}
+	
+	public Usuario converter(ColaboradorService colaboradorService, RoleService roleService) {
+		return new Usuario(nome, email, senha, colaboradorService.findById(colaboradorId).get(), ativo, roleService.findById(roleId));
 	}
 
 }
