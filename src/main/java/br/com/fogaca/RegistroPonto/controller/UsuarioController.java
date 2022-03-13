@@ -85,7 +85,7 @@ public class UsuarioController {
 	@CacheEvict(value = "listaUsuario", allEntries = true)
 	public ResponseEntity<UsuarioDto> update(@PathVariable Long id, @RequestBody @Valid UsuarioUpdateForm usuarioForm){
 		if(usuarioService.findById(id).isPresent()) {
-			Usuario usuario = usuarioForm.update(id, usuarioService, colaboradorService);
+			Usuario usuario = usuarioForm.update(id, usuarioService, colaboradorService, roleService);
 			return ResponseEntity.ok(new UsuarioDto(usuario));
 		}
 		return ResponseEntity.notFound().build();

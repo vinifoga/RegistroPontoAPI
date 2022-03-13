@@ -7,6 +7,7 @@ import org.hibernate.annotations.Type;
 
 import br.com.fogaca.RegistroPonto.model.Usuario;
 import br.com.fogaca.RegistroPonto.service.ColaboradorService;
+import br.com.fogaca.RegistroPonto.service.RoleService;
 import br.com.fogaca.RegistroPonto.service.UsuarioService;
 
 public class UsuarioUpdateForm {
@@ -15,10 +16,12 @@ public class UsuarioUpdateForm {
 	private String nome;
 	@NotNull @NotEmpty
 	private String email;
-	@NotNull @NotEmpty
-	private String senha;
+//	@NotNull @NotEmpty
+//	private String senha;
 	@NotNull
 	private Long colaboradorId;
+	@NotNull
+	private String roleId;
 	
 	@Type(type="true_false")
 	private boolean ativo;
@@ -39,13 +42,13 @@ public class UsuarioUpdateForm {
 		this.email = email;
 	}
 
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
+//	public String getSenha() {
+//		return senha;
+//	}
+//
+//	public void setSenha(String senha) {
+//		this.senha = senha;
+//	}
 
 	public Long getColaboradorId() {
 		return colaboradorId;
@@ -61,14 +64,22 @@ public class UsuarioUpdateForm {
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
+	
+	public String getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
+	}
 
-	public Usuario update(Long id, UsuarioService usuarioService, ColaboradorService colaboradorService) {
+	public Usuario update(Long id, UsuarioService usuarioService, ColaboradorService colaboradorService, RoleService roleService) {
 		Usuario usuario = usuarioService.findById(id).get();
 		usuario.setAtivo(this.ativo);
 		usuario.setColaborador(colaboradorService.findById(colaboradorId).get());
 		usuario.setEmail(this.email);
 		usuario.setNome(this.nome);
-		usuario.setSenha(this.senha);
+		roleService.findById(roleId);
+//		usuario.setSenha(this.senha);
 		return usuario;
 	}
 }
