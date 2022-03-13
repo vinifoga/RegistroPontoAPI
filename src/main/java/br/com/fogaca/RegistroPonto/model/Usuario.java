@@ -71,6 +71,10 @@ public class Usuario implements UserDetails {
 		return true;
 	}
 
+	public Usuario() {
+		super();
+	}
+
 	public Usuario(@NotNull @NotEmpty String nome, @NotNull @NotEmpty String email, @NotNull @NotEmpty String senha,
 			Colaborador colaborador, boolean ativo, List<Role> roles) {
 		super();
