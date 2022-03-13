@@ -50,6 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 		.antMatchers(HttpMethod.POST, "/auth").permitAll()
 		.antMatchers(HttpMethod.GET, "/usuarios").hasAnyRole(responsavelRh,admin)
+		.antMatchers(HttpMethod.GET, "/roles").hasAnyRole(responsavelRh,admin)
 		.antMatchers(HttpMethod.POST, "/usuarios").hasAnyRole(responsavelRh,admin)
 		.antMatchers(HttpMethod.GET, "/usuarios/id/**").hasAnyRole(responsavelRh,colaborador,admin)
 		.antMatchers(HttpMethod.GET, "/usuarios/email/**").hasAnyRole(responsavelRh,colaborador,admin)
