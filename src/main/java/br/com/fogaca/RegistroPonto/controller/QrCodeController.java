@@ -20,7 +20,7 @@ public class QrCodeController {
 		modelAndView.addObject("data", LocalDate.now());
 		modelAndView.addObject("hora", LocalDateTime.now().format(hr));
 		modelAndView.addObject("status", StatusCorrecaoRegistro.NORMAL.toString());
-		modelAndView.setViewName("/qrcode");
+		modelAndView.setViewName("qrcode");
 		return modelAndView;
 	}
 }
