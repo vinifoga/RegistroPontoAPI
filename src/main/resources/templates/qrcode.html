@@ -2,26 +2,36 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
 </head>
-<body>
-
-	<input type="text" id="qr-data" onchange="generateQR()">
-	<div id="qrcode"></div>
+<link rel="stylesheet" type="text/css" href="../css/css.css">
+<link rel="stylesheet" type="text/css" href="css/css.css">
+<body onload="generateQR()">
+	<div id="container">
+		<input type="hidden" id="qr-data"
+			th:value="${data} + ';' + ${hora} + ';' + ${status}">
+		<div id="qrcode"></div>
+	</div>
 </body>
 <script type="text/javascript" src="../js/qrcode.min.js"></script>
 <script type="text/javascript" src="js/qrcode.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
 
-	<script>
-		var qrdata = document.getElementById('qr-data');
-		var qrcode = new QRCode(document.getElementById('qrcode'));
-		
-		function generateQR(){
-			var data = qrdata.value;			
-			qrcode.makeCode(data);
-		}
-	
-	</script>
+<script>
+	window.setInterval('refresh()', 10000); 	
+	function refresh() {
+   		window .location.reload();
+	}	
+	var qrdata = document.getElementById('qr-data');
+	var qrcode = new QRCode(document.getElementById('qrcode'));
+
+	function generateQR() {
+		var data = qrdata.value;
+		qrcode.makeCode(data);
+	}
+</script>
 
 
 
