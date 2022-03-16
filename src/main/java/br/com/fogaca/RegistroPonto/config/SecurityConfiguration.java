@@ -49,6 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		.antMatchers(HttpMethod.POST, "/auth").permitAll()
+		.antMatchers(HttpMethod.GET, "/qrcode").permitAll()
 		.antMatchers(HttpMethod.GET, "/usuarios").hasAnyRole(responsavelRh,admin)
 		.antMatchers(HttpMethod.GET, "/roles").hasAnyRole(responsavelRh,admin)
 		.antMatchers(HttpMethod.POST, "/usuarios").hasAnyRole(responsavelRh,admin)
@@ -90,6 +91,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	//Recursos Estaticos
 	@Override
 	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/css/**", "/img/**", "/js/**", "/scss/**", "/vendor/**");
 	}
 	
 }

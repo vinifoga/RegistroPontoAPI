@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<input type="text" id="qr-data" onchange="generateQR()">
+	<div id="qrcode"></div>
+</body>
+<script type="text/javascript" src="../js/qrcode.min.js"></script>
+<script type="text/javascript" src="js/qrcode.min.js"></script>
+
+	<script>
+		var qrdata = document.getElementById('qr-data');
+		var qrcode = new QRCode(document.getElementById('qrcode'));
+		
+		function generateQR(){
+			var data = qrdata.value;			
+			qrcode.makeCode(data);
+		}
+	
+	</script>
+
+
+
+</html>
