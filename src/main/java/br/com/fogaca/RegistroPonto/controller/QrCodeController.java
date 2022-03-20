@@ -20,8 +20,8 @@ public class QrCodeController {
 		DateTimeFormatter hr = DateTimeFormatter.ofPattern("HH:mm:ss");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("data", LocalDate.now());
-		LocalDateTime zonedDateTime = LocalDateTime.now();		
-		modelAndView.addObject("hora", ZonedDateTime.of(zonedDateTime, ZoneId.of("America/Sao_Paulo")).format(hr));
+		ZonedDateTime hour = ZonedDateTime.now();		
+		modelAndView.addObject("hora", hour.withZoneSameInstant(ZoneId.of("America/Sao_Paulo")).format(hr));
 		modelAndView.addObject("status", StatusCorrecaoRegistro.NORMAL.toString());
 		modelAndView.setViewName("qrcode");
 		return modelAndView;
