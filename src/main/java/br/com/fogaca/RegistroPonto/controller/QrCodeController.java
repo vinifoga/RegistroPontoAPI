@@ -3,6 +3,7 @@ package br.com.fogaca.RegistroPonto.controller;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.springframework.stereotype.Controller;
@@ -16,10 +17,11 @@ public class QrCodeController {
 
 	@GetMapping("/qrcode")
 	public ModelAndView novo() {
-		DateTimeFormatter hr = DateTimeFormatter.ofPattern("hh:mm:ss");
+		DateTimeFormatter hr = DateTimeFormatter.ofPattern("HH:mm:ss");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("data", LocalDate.now());
-		modelAndView.addObject("hora", LocalDateTime.now().atZone(ZoneId.of("UTC-3")).format(hr));
+		LocalDateTime zonedDateTime = LocalDateTime.now();		
+		modelAndView.addObject("hora", ZonedDateTime.of(zonedDateTime, ZoneId.of("America/Sao_Paulo")).format(hr));
 		modelAndView.addObject("status", StatusCorrecaoRegistro.NORMAL.toString());
 		modelAndView.setViewName("qrcode");
 		return modelAndView;
