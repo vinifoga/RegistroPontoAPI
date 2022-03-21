@@ -1,6 +1,9 @@
 package br.com.fogaca.RegistroPonto.controller;
 
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -40,13 +43,18 @@ public class RegistroController {
 	private ColaboradorService colaboradorService;
 	
 	@GetMapping
-	public Page<RegistroDto> list(Long id, @RequestParam Long colaboradorId, @PageableDefault(sort= {"data","hora"}, direction = Direction.DESC, page = 0, size = 4) Pageable paginacao){
+	public Page<RegistroDto> list(Long id, @RequestParam Long colaboradorId, @RequestParam String data, @PageableDefault(sort= {"data","hora"}, direction = Direction.DESC, page = 0, size = 4) Pageable paginacao){
 		
 		if(colaboradorId == null) { 
 			Page<Registro> registros = registroService.list(paginacao);
 			return RegistroDto.converterRegistro(registros);
-		} else {
+		} else if(data == null) {
 			Page<Registro> registros = registroService.findByColaborador_Matricula(colaboradorId, paginacao);
+			return RegistroDto.converterRegistro(registros);
+		} else {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDate localDate = LocalDate.parse(data, formatter);
+			Page<Registro> registros = registroService.findByDataAndColaborador_Matricula(localDate, colaboradorId, paginacao);
 			return RegistroDto.converterRegistro(registros);
 		}
 	}

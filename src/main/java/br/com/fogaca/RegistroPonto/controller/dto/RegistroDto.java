@@ -2,6 +2,7 @@ package br.com.fogaca.RegistroPonto.controller.dto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 

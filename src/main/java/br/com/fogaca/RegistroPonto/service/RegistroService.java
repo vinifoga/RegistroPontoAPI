@@ -1,5 +1,7 @@
 package br.com.fogaca.RegistroPonto.service;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +36,9 @@ public class RegistroService {
 
 	public Page<Registro> findByColaborador_Matricula(Long colaboradorId, Pageable paginacao) {
 		return registroRepository.findByColaborador_Matricula(colaboradorId, paginacao);
+	}
+	
+	public Page<Registro> findByDataAndColaborador_Matricula(LocalDate data, Long colaboradorId, Pageable paginacao){
+		return registroRepository.findByDataAndColaborador_Matricula(data, colaboradorId, paginacao);
 	}
 }
