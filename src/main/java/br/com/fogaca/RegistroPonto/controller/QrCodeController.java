@@ -1,7 +1,5 @@
 package br.com.fogaca.RegistroPonto.controller;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,10 +16,11 @@ public class QrCodeController {
 	@GetMapping("/qrcode")
 	public ModelAndView novo() {
 		DateTimeFormatter hr = DateTimeFormatter.ofPattern("HH:mm:ss");
+		DateTimeFormatter dt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("data", LocalDate.now());
-		ZonedDateTime hour = ZonedDateTime.now();		
-		modelAndView.addObject("hora", hour.withZoneSameInstant(ZoneId.of("America/Sao_Paulo")).format(hr));
+		ZonedDateTime zoned = ZonedDateTime.now();		
+		modelAndView.addObject("data", zoned.withZoneSameInstant(ZoneId.of("America/Sao_Paulo")).format(dt));		
+		modelAndView.addObject("hora", zoned.withZoneSameInstant(ZoneId.of("America/Sao_Paulo")).format(hr));
 		modelAndView.addObject("status", StatusCorrecaoRegistro.NORMAL.toString());
 		modelAndView.setViewName("qrcode");
 		return modelAndView;
