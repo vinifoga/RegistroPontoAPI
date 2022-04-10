@@ -43,7 +43,7 @@ public class RegistroController {
 	private ColaboradorService colaboradorService;
 	
 	@GetMapping
-	public Page<RegistroDto> list(Long id, @RequestParam Long colaboradorId, @RequestParam String data, @PageableDefault(sort= {"data","hora"}, direction = Direction.DESC, page = 0, size = 4) Pageable paginacao){
+	public Page<RegistroDto> list(Long id, @RequestParam Long colaboradorId, @RequestParam String data, @PageableDefault(sort= {"data","hora"}, direction = Direction.DESC, page = 0, size = 20) Pageable paginacao){
 		
 		if(colaboradorId == null) { 
 			Page<Registro> registros = registroService.list(paginacao);
