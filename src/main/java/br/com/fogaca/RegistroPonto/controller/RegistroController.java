@@ -48,7 +48,7 @@ public class RegistroController {
 		if(colaboradorId == null) { 
 			Page<Registro> registros = registroService.list(paginacao);
 			return RegistroDto.converterRegistro(registros);
-		} else if(data == null) {
+		} else if(data == null || data.isEmpty()) {
 			Page<Registro> registros = registroService.findByColaborador_Matricula(colaboradorId, paginacao);
 			return RegistroDto.converterRegistro(registros);
 		} else {
