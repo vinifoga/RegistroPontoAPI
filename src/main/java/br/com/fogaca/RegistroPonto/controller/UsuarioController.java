@@ -1,8 +1,12 @@
 package br.com.fogaca.RegistroPonto.controller;
 
 import java.net.URI;
+import java.text.Normalizer;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -93,12 +97,19 @@ public class UsuarioController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@PutMapping("/reset-senha/{email}")
+	@PutMapping("/reset-senha-padrao/{email}")
 	@Transactional
-	public ResponseEntity<UsuarioDtoSenha> updateSenha(@PathVariable String email, @RequestBody @Valid UsuarioUpdateSenhaForm usuarioSenhaForm){
-		if(usuarioService.findByEmail(email).isPresent()) {
-			Long id = usuarioService.findByEmail(email).get().getId();
-			Usuario usuario = usuarioSenhaForm.update(id, usuarioService);
+	public ResponseEntity<UsuarioDtoSenha> updateSenha(@PathVariable String email){
+		if(usuarioService.findByEmail(email).isPresent()) {			
+			Usuario usuario = usuarioService.findByEmail(email).get();
+			UsuarioUpdateSenhaForm usuarioUpdateSenhaForm = new UsuarioUpdateSenhaForm();
+			String pattern = "\\S+";
+			Pattern r = Pattern.compile(pattern);
+			Matcher m = r.matcher(usuario.getNome().toLowerCase());
+			if(m.find()) {
+				String senhaPadrao = Normalizer.normalize(m.group(0), Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "")+"@"+LocalDate.now().getYear();
+				usuarioUpdateSenhaForm.update(usuario, senhaPadrao);
+			}			
 			return ResponseEntity.ok(new UsuarioDtoSenha(usuario));
 		}
 		return ResponseEntity.notFound().build();

@@ -21,9 +21,8 @@ public class UsuarioUpdateSenhaForm {
 		this.senha = senha;
 	}
 
-	public Usuario update(Long id, UsuarioService usuarioService) {
-		Usuario usuario = usuarioService.findById(id).get();
-		usuario.setSenha(new BCryptPasswordEncoder().encode(this.senha));
+	public Usuario update(Usuario usuario, String senhaPadrao) {
+		usuario.setSenha(new BCryptPasswordEncoder().encode(senhaPadrao));
 		return usuario;
 	}
 }
