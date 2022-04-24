@@ -22,8 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.fogaca.RegistroPonto.controller.dto.UsuarioDto;
+import br.com.fogaca.RegistroPonto.controller.dto.UsuarioDtoSenha;
 import br.com.fogaca.RegistroPonto.controller.form.UsuarioForm;
 import br.com.fogaca.RegistroPonto.controller.form.UsuarioUpdateForm;
+import br.com.fogaca.RegistroPonto.controller.form.UsuarioUpdateSenhaForm;
 import br.com.fogaca.RegistroPonto.model.Usuario;
 import br.com.fogaca.RegistroPonto.service.ColaboradorService;
 import br.com.fogaca.RegistroPonto.service.RoleService;
@@ -87,6 +89,17 @@ public class UsuarioController {
 		if(usuarioService.findById(id).isPresent()) {
 			Usuario usuario = usuarioForm.update(id, usuarioService, colaboradorService, roleService);
 			return ResponseEntity.ok(new UsuarioDto(usuario));
+		}
+		return ResponseEntity.notFound().build();
+	}
+	
+	@PutMapping("/reset-senha/{email}")
+	@Transactional
+	public ResponseEntity<UsuarioDtoSenha> updateSenha(@PathVariable String email, @RequestBody @Valid UsuarioUpdateSenhaForm usuarioSenhaForm){
+		if(usuarioService.findByEmail(email).isPresent()) {
+			Long id = usuarioService.findByEmail(email).get().getId();
+			Usuario usuario = usuarioSenhaForm.update(id, usuarioService);
+			return ResponseEntity.ok(new UsuarioDtoSenha(usuario));
 		}
 		return ResponseEntity.notFound().build();
 	}
