@@ -38,6 +38,10 @@ public class RegistroService {
 		return registroRepository.findByColaborador_Matricula(colaboradorId, paginacao);
 	}
 	
+	public List<Registro> findByColaborador_Matricula(Long colaboradorId){
+		return registroRepository.findByColaborador_Matricula(colaboradorId);
+	}
+	
 	public Page<Registro> findByDataAndColaborador_Matricula(LocalDate data, Long colaboradorId, Pageable paginacao){
 		return registroRepository.findByDataAndColaborador_Matricula(data, colaboradorId, paginacao);
 	}
