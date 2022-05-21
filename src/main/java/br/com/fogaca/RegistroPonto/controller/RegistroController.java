@@ -42,13 +42,13 @@ public class RegistroController {
 	@Autowired
 	private ColaboradorService colaboradorService;
 	
-	@GetMapping
+	@GetMapping("/{colaboradorId}/{data}")
 	public Page<RegistroDto> list(Long id, @PathVariable(required = false)  Long colaboradorId, @PathVariable(required = false) String data, @PageableDefault(sort= {"data","hora"}, direction = Direction.DESC, page = 0, size = 20) Pageable paginacao){
 		
 		if(colaboradorId == null) { 
 			Page<Registro> registros = registroService.list(paginacao);
 			return RegistroDto.converterRegistro(registros);
-		} else if(data == null || data.isEmpty()) {
+		} else if(data == null || data.isEmpty() || data.compareTo("99")==0) {
 			Page<Registro> registros = registroService.findByColaborador_Matricula(colaboradorId, paginacao);
 			return RegistroDto.converterRegistro(registros);
 		} else {
@@ -68,13 +68,13 @@ public class RegistroController {
 		return ResponseEntity.created(uri).body(new RegistroDto(registro));
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<RegistroDto> findById(@PathVariable Long id){
-		if(registroService.findById(id).isPresent()) {
-			return ResponseEntity.ok(new RegistroDto(registroService.findById(id).get()));
-		}
-		return ResponseEntity.notFound().build();
-	}
+	/*
+	 * @GetMapping("/{id}") public ResponseEntity<RegistroDto>
+	 * findById(@PathVariable Long id){ if(registroService.findById(id).isPresent())
+	 * { return ResponseEntity.ok(new
+	 * RegistroDto(registroService.findById(id).get())); } return
+	 * ResponseEntity.notFound().build(); }
+	 */
 	
 	@PutMapping("/{id}")
 	@Transactional
