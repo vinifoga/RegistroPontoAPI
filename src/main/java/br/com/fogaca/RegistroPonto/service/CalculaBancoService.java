@@ -32,6 +32,7 @@ public class CalculaBancoService {
 	public LocalTime calculaBanco(Long colaboradorId, List<Registro> registros) {
 		Colaborador colaborador = colaboradorRepository.findById(colaboradorId).get();
 		long banco = 0;
+		
 		long trab = ChronoUnit.MINUTES.between(colaborador.getHoraEntra(), colaborador.getHoraSai());
 		long intervalo = colaborador.getIntervaloTempo().getHour()*60+colaborador.getIntervaloTempo().getMinute();
 		long jornada = trab - intervalo;
