@@ -46,7 +46,7 @@ public class RegistroService {
 		return registroRepository.findByDataAndColaborador_Matricula(data, colaboradorId, paginacao);
 	}
 	
-	public List<Registro> findByDataAndColaborador_Matricula(LocalDate hoje, Long colaboradorId){
-		return registroRepository.findByDataAndColaborador_Matricula(hoje, colaboradorId);
+	public List<Registro> findByIntervaloAndMatricula(LocalDate dataInicio, LocalDate dataFim, Long colaboradorId){
+		return registroRepository.findByIntervaloAndMatricula(dataInicio, dataFim, colaboradorId);
 	}
 }

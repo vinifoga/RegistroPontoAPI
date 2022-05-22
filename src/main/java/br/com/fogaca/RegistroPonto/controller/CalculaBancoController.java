@@ -31,7 +31,9 @@ public class CalculaBancoController {
 		try {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			LocalDate hoje = LocalDate.parse(LocalDate.now().format(formatter));
-			List<Registro> listaRegistro = registroService.findByDataAndColaborador_Matricula(hoje, id);
+			LocalDate dataInicio = hoje.withDayOfMonth(1);
+			LocalDate dataFim = hoje.withDayOfMonth(hoje.getMonth().length(hoje.isLeapYear()));
+			List<Registro> listaRegistro = registroService.findByIntervaloAndMatricula(dataInicio, dataFim, id);
 			calculaBanco = calculaService.calculaBanco(id,listaRegistro);
 		} catch (Exception e) {
 			return ResponseEntity.notFound().build();
