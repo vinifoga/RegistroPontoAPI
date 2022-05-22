@@ -34,8 +34,8 @@ public class CalculaBancoService {
 		long banco = 0;
 		
 		long trab = ChronoUnit.MINUTES.between(colaborador.getHoraEntra(), colaborador.getHoraSai());
-		long intervalo = colaborador.getIntervaloTempo().getHour()*60+colaborador.getIntervaloTempo().getMinute();
-		long jornada = trab - intervalo;
+		long intervalo = colaborador.getIntervaloTempo().getHour() * 60 + colaborador.getIntervaloTempo().getMinute();
+		long jornadaDia = trab - intervalo;
 		Map<LocalDate, List<LocalTime>> registroDia = new HashMap<>();
 		
 		Set<LocalDate> datas = new HashSet<>();		
@@ -63,19 +63,31 @@ public class CalculaBancoService {
 				hora1 = ChronoUnit.MINUTES.between(pontos.get(0), pontos.get(1));
 				hora2 = ChronoUnit.MINUTES.between(pontos.get(2), pontos.get(3));
 			}			
-			minutosTrab = hora1+hora2-jornada;
+			minutosTrab = hora1+hora2-jornadaDia;
 			
 			banco+=minutosTrab;
 		}		
-		Long hora = banco/60;
-		Long minutos = banco%60;
+		
+		LocalTime saldoAcumulado = colaborador.getSaldoAcumulado();
+		saldoAcumulado = saldoAcumulado != null ? saldoAcumulado : LocalTime.of(0, 0, 0);
+		long saldoAcumuladoLong = colaborador.getSaldoAcumulado().getHour() * 60 + colaborador.getSaldoAcumulado().getMinute();
+		saldoAcumuladoLong+=banco;
+		
+		Long hora = saldoAcumuladoLong/60;
+		Long minutos = saldoAcumuladoLong%60;
 		
 		String horaString = hora.toString();
 		String minutoString = minutos.toString();
+		
 		String bancoString;
-		if(horaString.length()==1) {
+		if(horaString.length()==1 && minutoString.length()==1) {
+			bancoString = "0"+horaString+":"+"0"+minutoString+":00";
+		} else if(horaString.length()==1) {
 			bancoString = "0"+horaString+":"+minutoString+":00";
-		} else {
+		} else if(minutoString.length()==1) {
+			bancoString = horaString+":"+"0"+minutoString+":00";
+		}
+		else {
 			bancoString = horaString+":"+minutoString+":00";
 		}
 		LocalTime bancoLt = LocalTime.parse(bancoString);

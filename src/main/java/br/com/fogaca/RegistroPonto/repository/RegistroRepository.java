@@ -16,4 +16,5 @@ public interface RegistroRepository extends JpaRepository<Registro, Long>{
 	Page<Registro> findByColaborador_Matricula(Long colaboradorId, Pageable paginacao);
 	List<Registro> findByColaborador_Matricula(Long colaboradorId);
 	Page<Registro> findByDataAndColaborador_Matricula(LocalDate data, Long colaboradorId, Pageable paginacao);
+	List<Registro> findByDataAndColaborador_Matricula(LocalDate hoje, Long colaboradorId);
 }

@@ -28,6 +28,7 @@ public class ColaboradorDto {
 	private LocalTime horaEntraSabado;
 	private LocalTime horaSaiSabado;
 	private String unidadeOrganizacional;
+	private LocalTime saldoAcumulado;
 	
 	public ColaboradorDto(Colaborador colaborador) {
 		this.matricula = colaborador.getMatricula();
@@ -49,6 +50,7 @@ public class ColaboradorDto {
 		this.horaEntraSabado = colaborador.getHoraEntraSabado();
 		this.horaSaiSabado = colaborador.getHoraSaiSabado();
 		this.unidadeOrganizacional = colaborador.getUnidadeOrganizacional().getDescricao();
+		this.saldoAcumulado = colaborador.getSaldoAcumulado();
 	}
 
 	public Long getMatricula() {
@@ -127,10 +129,12 @@ public class ColaboradorDto {
 		return unidadeOrganizacional;
 	}
 	
-	public static List<ColaboradorDto> converterColaborador(List<Colaborador> colaboradores){
-		return colaboradores.stream().map(ColaboradorDto::new).collect(Collectors.toList());
+	public LocalTime getSaldoAcumulado() {
+		return saldoAcumulado;
 	}
 	
-	
+	public static List<ColaboradorDto> converterColaborador(List<Colaborador> colaboradores){
+		return colaboradores.stream().map(ColaboradorDto::new).collect(Collectors.toList());
+	}	
 	
 }

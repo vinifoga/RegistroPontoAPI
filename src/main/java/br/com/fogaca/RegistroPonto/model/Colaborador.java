@@ -64,6 +64,7 @@ public class Colaborador {
 	@OneToMany(mappedBy = "colaborador")
 	@JsonIgnore
 	private List<Registro> registro;
+	private LocalTime saldoAcumulado;
 
 	public Colaborador() {
 		super();
@@ -262,6 +263,14 @@ public class Colaborador {
 
 	public void setRegistro(List<Registro> registro) {
 		this.registro = registro;
+	}
+	
+	public LocalTime getSaldoAcumulado() {
+		return saldoAcumulado;
+	}
+	
+	public void setSaldoAcumulado(LocalTime saldoAcumulado) {
+		this.saldoAcumulado = saldoAcumulado;
 	}
 
 }
