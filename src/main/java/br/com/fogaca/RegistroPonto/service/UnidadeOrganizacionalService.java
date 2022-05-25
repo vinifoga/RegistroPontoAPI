@@ -16,7 +16,7 @@ public class UnidadeOrganizacionalService {
 	private UnidadeOrganizacionalRepository unidadeOrganizacionalRepository;
 	
 	public List<UnidadeOrganizacional> list(){
-		return unidadeOrganizacionalRepository.findAll();
+		return unidadeOrganizacionalRepository.findByOrderByDescricao();
 	}
 	
 	public Optional<UnidadeOrganizacional> findById(Long unidadeId){

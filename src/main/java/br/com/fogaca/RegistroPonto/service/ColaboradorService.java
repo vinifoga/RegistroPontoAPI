@@ -1,5 +1,7 @@
 package br.com.fogaca.RegistroPonto.service;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +18,7 @@ public class ColaboradorService {
 	private ColaboradorRepository colaboradorRepository;
 	
 	public List<Colaborador> list(){
-		return colaboradorRepository.findAll();
+		return colaboradorRepository.findAllByOrderByNome();
 	}
 	
 	public Optional<Colaborador> findById(Long colaboradorId){
