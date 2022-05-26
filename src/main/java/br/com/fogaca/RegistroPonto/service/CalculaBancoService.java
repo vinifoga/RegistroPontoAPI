@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.fogaca.RegistroPonto.model.Colaborador;
 import br.com.fogaca.RegistroPonto.model.Registro;
+import br.com.fogaca.RegistroPonto.model.StatusCorrecaoRegistro;
 import br.com.fogaca.RegistroPonto.repository.ColaboradorRepository;
 
 @Service
@@ -45,10 +46,12 @@ public class CalculaBancoService {
 		}
 		
 		Map<LocalDate, List<LocalTime>> registrosDia = new HashMap<>();
-		for (LocalDate data : datas) {			
+		for (LocalDate data : datas) {						
 			List<Registro> listaRegistros = registros.stream().filter(reg -> reg.getData().isEqual(data)).collect(Collectors.toList());
+			List<Registro> listaRegistrosSemReprovado = listaRegistros.stream().filter(r -> !(r.getStatus().compareTo(StatusCorrecaoRegistro.REPROVADO)==0)).collect(Collectors.toList());
+			List<Registro> listaRegistrosSemPendente = listaRegistrosSemReprovado.stream().filter(r -> !(r.getStatus().compareTo(StatusCorrecaoRegistro.PENDENTE)==0)).collect(Collectors.toList());
 			List<LocalTime> listaPontos = new ArrayList<>();
-			for (Registro reg : listaRegistros) {
+			for (Registro reg : listaRegistrosSemPendente) {
 				listaPontos.add(reg.getHora());
 			}
 			registrosDia.put(data, listaPontos);
