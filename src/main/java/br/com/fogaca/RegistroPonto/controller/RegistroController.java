@@ -60,8 +60,9 @@ public class RegistroController {
 	}
 	
 	@GetMapping("/nao-normal")
-	public List<Registro> listNaoNormal(){
-		return registroService.findRegistroNaoNormal();
+	public List<RegistroDto> listNaoNormal(){
+		List<Registro> findRegistroNaoNormal = registroService.findRegistroNaoNormal();
+		return RegistroDto.converterRegistroList(findRegistroNaoNormal); 
 	}
 	
 	@PostMapping
