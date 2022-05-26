@@ -49,4 +49,8 @@ public class RegistroService {
 	public List<Registro> findByIntervaloAndMatricula(LocalDate dataInicio, LocalDate dataFim, Long colaboradorId){
 		return registroRepository.findByIntervaloAndMatricula(dataInicio, dataFim, colaboradorId);
 	}
+	
+	public List<Registro> findRegistroNaoNormal(){
+		return registroRepository.findNaoNormal();
+	}
 }

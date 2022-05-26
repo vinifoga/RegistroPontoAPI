@@ -20,4 +20,7 @@ public interface RegistroRepository extends JpaRepository<Registro, Long>{
 	
 	@Query(value = "select * from registro where colaborador_matricula = :colaboradorId and data between :dataInicio and :dataFim", nativeQuery = true)
 	List<Registro> findByIntervaloAndMatricula(LocalDate dataInicio, LocalDate dataFim, Long colaboradorId);
+	
+	@Query(value = "select * from registro where status != 'NORMAL'")
+	List<Registro> findNaoNormal();
 }

@@ -59,6 +59,11 @@ public class RegistroController {
 		}
 	}
 	
+	@GetMapping("/nao-normal")
+	public List<Registro> listNaoNormal(){
+		return registroService.findRegistroNaoNormal();
+	}
+	
 	@PostMapping
 	@Transactional
 	public ResponseEntity<RegistroDto> create(@RequestBody @Valid RegistroForm registroForm, UriComponentsBuilder uriBuilder){
