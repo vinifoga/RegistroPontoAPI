@@ -26,6 +26,7 @@ public class Registro {
 	private LocalTime hora;
 	@Enumerated(EnumType.STRING)
 	private StatusCorrecaoRegistro status;
+	private String mensagem;
 	@ManyToOne
 	private Colaborador colaborador;
 
@@ -33,12 +34,13 @@ public class Registro {
 		super();
 	}
 
-	public Registro(@NotNull LocalDate data, @NotNull LocalTime hora, StatusCorrecaoRegistro status,
+	public Registro(@NotNull LocalDate data, @NotNull LocalTime hora, StatusCorrecaoRegistro status, String mensagem,
 			Colaborador colaborador) {
 		super();
 		this.data = data;
 		this.hora = hora;
 		this.status = status;
+		this.mensagem = mensagem;
 		this.colaborador = colaborador;
 	}
 
@@ -74,6 +76,13 @@ public class Registro {
 		this.status = status;
 	}
 
+	public String getMensagem() {
+		return mensagem;
+	}
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
+	}
+	
 	public Colaborador getColaborador() {
 		return colaborador;
 	}

@@ -16,6 +16,7 @@ public class RegistroForm {
 	@NotNull
 	private LocalTime hora;
 	private StatusCorrecaoRegistro status;
+	private String mensagem;
 	private Long colaboradorId;
 	
 	public LocalDate getData() {
@@ -43,7 +44,14 @@ public class RegistroForm {
 		this.colaboradorId = colaboradorId;
 	}
 	
+	public String getMensagem() {
+		return mensagem;
+	}
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
+	}
+	
 	public Registro converter(ColaboradorService colaboradorService) {
-		return new Registro(data, hora, status, colaboradorService.findById(colaboradorId).get());
+		return new Registro(data, hora, status, mensagem, colaboradorService.findById(colaboradorId).get());
 	}
 }

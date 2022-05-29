@@ -16,6 +16,7 @@ public class RegistroDto {
 	private LocalDate data;
 	private LocalTime hora;
 	private StatusCorrecaoRegistro status;
+	private String mensagem;
 	private String colaboradorNome;
 	
 	public RegistroDto(Registro registro) {
@@ -23,6 +24,7 @@ public class RegistroDto {
 		this.data = registro.getData();
 		this.hora = registro.getHora();
 		this.status = registro.getStatus();
+		this.mensagem = registro.getMensagem();
 		this.colaboradorNome = registro.getColaborador().getNome();
 	}
 
@@ -42,6 +44,10 @@ public class RegistroDto {
 		return status;
 	}
 
+	public String getMensagem() {
+		return mensagem;
+	}
+	
 	public String getColaboradorNome() {
 		return colaboradorNome;
 	}
